@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      id="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Document</title>
+
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="./jquery.formRecover.js"></script>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="content">
+      <fieldset>
+        <legend>Title:</legend>
+        <label for="reference_number_extra">Contract Reference Number:</label
+        ><br />
+        <input
+          name="reference_number_extra"
+          id="reference_number_extra"
+          type="text"
+          value=""
+          id="reference_number_extra"
+          disabled
+        />
+        <button onclick="clicked()" class="submitBtn">
+          Generate contract ID</button
+        ><br />
+      </fieldset>
+
+      <form
+        accept-charset="UTF-8"
+        action="./convert/index.php"
+        autocomplete="off"
+        method="POST"
+        onsubmit="submitted()"
+        id="main"
+      >
+        <input
+          name="leadid"
+          id="leadid"
+          type="text"
+          style="display: none"
+          value=""
+        />
+        <br />
+
+        <input
+          name="reference_number"
+          id="reference_number"
+          type="text"
+          style="display: none"
+          value=""
+        />
+        <br />
+
+        <fieldset>
+          <legend>Representatives Information:</legend>
+          <label for="repName">Reps Name</label> <br />
+          <input name="repName" id="repName" type="text" value="" /> <br />
+          <label for="repContact">Mobile Number</label> <br />
+          <input name="repContact" id="repContact" type="text" value="" />
+          <br />
+
+          <label for="soldDate">Sold Date</label><br />
+          <input name="soldDate" id="soldDate" type="date" /> <br />
+        </fieldset>
+
+        <fieldset>
+          <legend>Customer Information:</legend>
+
+          <label for="firstName">First Name</label><br />
+          <input
+            name="firstName"
+            id="firstName"
+            type="text"
+            value=""
+            autocomplete="none"
+          />
+          <br />
+          <label for="lastName">Last Name</label><br />
+          <input
+            name="lastName"
+            id="lastName"
+            type="text"
+            value=""
+            autocomplete="none"
+          />
+          <br />
+
+          <label for="address">Address</label><br />
+          <input
+            name="address"
+            id="address"
+            type="text"
+            value=""
+            autocomplete="none"
+          />
+          <br />
+          <label for="postCode">Post Code</label><br />
+          <input
+            name="postCode"
+            id="postCode"
+            type="text"
+            value=""
+            autocomplete="none"
+          />
+          <br />
+          <label for="phoneNumber">Phone Number</label><br />
+          <input
+            name="phoneNumber"
+            id="phoneNumber"
+            type="text"
+            value=""
+            autocomplete="none"
+          />
+          <br />
+          <label for="mobileNumber">Mobile Number</label><br />
+          <input
+            name="mobileNumber"
+            id="mobileNumber"
+            type="text"
+            value=""
+            autocomplete="none"
+          />
+          <br />
+          <label for="email">Email</label><br />
+          <input
+            name="email"
+            id="email"
+            type="text"
+            value=""
+            autocomplete="none"
+          />
+          <br />
+        </fieldset>
+
+        <fieldset>
+          <legend>Purchase Information:</legend>
+          <label for="availableToSurvey">Available to Survey</label><br />
+          <input
+            name="availableToSurvey"
+            id="availableToSurvey"
+            type="text"
+            value=""
+          />
+          <br />
+          <label for="purchaseType">Purchase Type</label><br />
+          <input
+            name="purchaseType"
+            id="purchaseTypeCash"
+            type="radio"
+            value="cash"
+          />
+          Cash <br />
+          <input
+            name="purchaseType"
+            id="purchaseTypeLomondAccount"
+            type="radio"
+            value="lomondAccount"
+          />
+          Lomond Account <br />
+          <label for="financeAgreementNumber">Finance Agreement Number</label
+          ><br />
+          <input
+            name="financeAgreementNumber"
+            id="financeAgreementNumber"
+            type="text"
+            value=""
+            autocomplete="none"
+          />
+          <br />
+          <label for="installationNotes"></label><br />
+          <textarea
+            cols="30"
+            rows="2"
+            name="installationNotes"
+            id="installationNotes"
+            placeholder="Installation Notes Text Here..."
+          ></textarea
+          ><br />
+          <label for="squareMeterage">Square Metreage</label><br />
+          <input
+            name="squareMeterage"
+            id="squareMeterage"
+            type="text"
+            value=""
+            autocomplete="none"
+          />
+          <br />
+          <!--<label for="productType">Product Type</label><br /> -->
+          <!--<input name="productType" id="productTypeRoof" type="radio" value="roof" /> Roof <br /> -->
+          <!--<input name="productType" id="productTypeRoughcast" type="radio" value="roughcast" /> Roughcast <br />  -->
+        </fieldset>
+
+        <fieldset>
+          <legend>Specifications Image:</legend>
+          <input
+            name="spcification_image"
+            id="spcification_image"
+            type="hidden"
+            value=""
+            autocomplete="none"
+          />
+          <br />
+          <img
+            src=""
+            alt=""
+            class="specifications_image_preview"
+            id="specifications_image_preview"
+            width="100%"
+          /><br />
+        </fieldset>
+        <fieldset>
+          <legend>Contract Terms:</legend>
+          <label for="paymentType">I acknowledge receipt of</label><br />
+          <input
+            name="paymentType"
+            id="paymentTypeCash"
+            type="radio"
+            value="cash"
+          />
+          Cash <br />
+          <input
+            name="paymentType"
+            id="paymentTypeCheque"
+            type="radio"
+            value="cheque"
+          />
+          Cheque <br />
+          <input
+            name="paymentType"
+            id="paymentTypeCard"
+            type="radio"
+            value="card"
+          />
+          Card <br />
+          <label for="amountOf">-> for the amount of</label><br />
+          <input
+            name="amountOf"
+            id="amountOf"
+            type="text"
+            value=""
+            autocomplete="none"
+          />
+          <br />
+
+          <label for="contractPrice">Contract Price</label><br />
+          <input
+            name="contractPrice"
+            id="contractPrice"
+            type="text"
+            value=""
+            autocomplete="none"
+          />
+          <br />
+          <label for="adminFee">Admin Fee</label><br />
+          <input
+            name="adminFee"
+            id="adminFee"
+            type="text"
+            value=""
+            autocomplete="none"
+          />
+          <br />
+          <label for="depositPaid">Deposit Paid</label><br />
+          <input
+            name="depositPaid"
+            id="depositPaid"
+            type="text"
+            value=""
+            autocomplete="none"
+          />
+          <br />
+          <label for="bankTransfer">Bank Transfer</label><br />
+          <input
+            name="bankTransfer"
+            id="bankTransfer"
+            type="text"
+            value=""
+            autocomplete="none"
+          />
+          <br />
+        </fieldset>
+        <fieldset>
+          <legend>Scope of work:</legend>
+          <!-- <label for="name">Insert notes for scope of work</label><br />  -->
+          <textarea
+            cols="30"
+            rows="2"
+            name="scopeOfWork"
+            id="scopeOfWork"
+            placeholder="Scope of work text here..."
+          ></textarea
+          ><br />
+        </fieldset>
+
+        <!--<fieldset>-->
+        <!--    <legend>Job Requirements:</legend>-->
+        <!--        <input name="skipOffRoad" id="skipOffRoad" type="checkbox" value="1" /> Skip Off Road<br /> -->
+        <!--        <input name="skipOnRoad" id="skipOnRoad" type="checkbox" value="1" /> Skip On Road<br /> -->
+        <!--        <input name="overheadCables" id="overheadCables" type="checkbox" value="1" /> Overhead Cables<br /> -->
+        <!--        <input name="aerial" id="aerial" type="checkbox" value="1" /> Aerial<br /> -->
+        <!--        <input name="satDish" id="satDish" type="checkbox" value="1" /> Sat Dish<br /> -->
+        <!--        <input name="scaffoldFront" id="scaffoldFront" type="checkbox" value="1" /> Scaffold Front<br /> -->
+        <!--        <input name="scaffoldBack" id="scaffoldBack" type="checkbox" value="1" /> Scaffold Back<br /> -->
+        <!--        <input name="scaffoldGable" id="scaffoldGable" type="checkbox" value="1" /> Scaffold Gable<br /> -->
+
+        <!--</fieldset>-->
+
+        <!--<fieldset>-->
+        <!--    <legend>Additional Requirements:</legend>-->
+        <!--        <input name="soffit" id="soffit" type="checkbox" value="1" /> Soffit<br /> -->
+        <!--        <input name="fascia" id="fascia" type="checkbox" value="1" /> Fascia<br /> -->
+        <!--    <input name="gutters" id="gutters" type="checkbox" value="1" /> Gutters<br /> -->
+        <!--    <input name="dpipe" id="dpipe" type="checkbox" value="1" /> D-pipe<br /> -->
+        <!--        <input name="chimneyRemoval" id="chimneyRemoval" type="checkbox" value="1" /> Chimney Removal<br /> -->
+        <!--        <input name="lead" id="lead" type="checkbox" value="1" /> Lead<br /> -->
+        <!--    <input name="tile" id="tile" type="checkbox" value="1" /> Tile<br /> -->
+        <!--    <input name="slate" id="slate" type="checkbox" value="1" /> Slate<br /> -->
+        <!--    <input name="skylight" id="skylight" type="checkbox" value="1" /> Skylight<br /> -->
+        <!--    <input name="velux" id="velux" type="checkbox" value="1" /> Velux<br /> -->
+        <!--    <input name="smoothCoatBases" id="smoothCoatBases" type="checkbox" value="1" /> Smooth Coat Bases<br /> -->
+        <!--    <input name="smoothCoatWindows" id="smoothCoatWindows" type="checkbox" value="1" /> Smooth Coat Windows<br /> -->
+        <!--    <input name="paintCastIronPipes" id="paintCastIronPipes" type="checkbox" value="1" /> Paint Cast Iron Pipes<br /> -->
+        <!--    <input name="oversills" id="oversills" type="checkbox" value="1" /> Oversills<br /> -->
+        <!--    <input name="roughcastChimney" id="roughcastChimney" type="checkbox" value="1" /> Roughcast Chimney<br /> -->
+        <!--    <input name="solatube" id="solatube" type="checkbox" value="1" /> Solatube<br /> -->
+        <!--</fieldset>-->
+        <!-- <script async src="https://api.countapi.xyz/hit/lomondcrm.co.uk/visits?callback=cb"></script> -->
+
+        <fieldset>
+          <legend>Acknowledgement:</legend>
+          <label for="iAgreeToContact"
+            >We may contact you using the above information for marketing
+            purposes in the future, to opt in please tick this box.</label
+          ><br />
+          <input
+            name="iAgreeToContact"
+            id="iAgreeToContact"
+            type="checkbox"
+            value="1"
+          />
+          I agree<br />
+          <br />
+          <!--<iframe src="terms.html" title="Terms & Conditions" width="100%">-->
+          <!--</iframe>-->
+          <!--<br />-->
+
+          <label for="tsandcs"
+            >I have read and agree to the
+            <a href="./terms.html">Terms & Conditions</a></label
+          ><br />
+          <input name="tsandcs" id="tsandcsCheck" type="checkbox" value="1" /> I
+          agree<br />
+          <p>
+            You will receive an e-mail with a copy of your contract and the
+            terms and conditions mentioned above.
+          </p>
+          <input
+            name="gardenHomeSize"
+            type="hidden"
+            value=""
+            id="gardenHomeSize"
+            autocomplete="none"
+          />
+          <input
+            name="numberOfWindows"
+            type="hidden"
+            value=""
+            id="numberOfWindows"
+            autocomplete="none"
+          />
+          <input
+            name="typeOfWindows"
+            type="hidden"
+            value=""
+            id="typeOfWindows"
+            autocomplete="none"
+          />
+          <input
+            name="typeOfDoors"
+            type="hidden"
+            value=""
+            id="typeOfDoors"
+            autocomplete="none"
+          />
+          <input
+            name="typeOfCladding"
+            type="hidden"
+            value=""
+            id="typeOfCladding"
+            autocomplete="none"
+          />
+          <input
+            name="directionOfCladding"
+            type="hidden"
+            value=""
+            id="directionOfCladding"
+            autocomplete="none"
+          />
+
+          <!-- 
+              ADDONS
+           -->
+          <input
+            name="compositeDecking"
+            type="hidden"
+            value=""
+            id="compositeDecking"
+            autocomplete="none"
+          />
+          <input
+            name="skylight"
+            type="hidden"
+            value=""
+            id="skylight"
+            autocomplete="none"
+          />
+          <input
+            name="waterAndWasteConnection"
+            type="hidden"
+            value=""
+            id="waterAndWasteConnection"
+            autocomplete="none"
+          />
+          <input
+            name="glassOrPlasterboardInternalWall"
+            type="hidden"
+            value=""
+            id="glassOrPlasterboardInternalWall"
+            autocomplete="none"
+          />
+          <input
+            name="hardLandscaping"
+            type="hidden"
+            value=""
+            id="hardLandscaping"
+            autocomplete="none"
+          />
+          <input
+            name="catSixConnection"
+            type="hidden"
+            value=""
+            id="catSixConnection"
+            autocomplete="none"
+          />
+          <input
+            name="additionalOverhangs"
+            type="hidden"
+            value=""
+            id="additionalOverhangs"
+            autocomplete="none"
+          />
+          <input
+            name="artificialGrass"
+            type="hidden"
+            value=""
+            id="artificialGrass"
+            autocomplete="none"
+          />
+
+          <!-- SIGNATURE -->
+
+          <input
+            name="signature"
+            type="hidden"
+            value=""
+            id="signature_send_data"
+            autocomplete="none"
+          />
+          <br />
+        </fieldset>
+
+        <div class="warning" id="formRecover_fdbk"></div>
+        <br />
+        <button type="submit" value="Submit" class="submitBtn" id="submitTo">
+          Generate Contract
+        </button>
+      </form>
+      <style>
+        .submitBtn {
+          padding: 10px;
+          width: 100%;
+          background-color: cornflowerblue;
+          /*display: none;*/
+        }
+      </style>
+      <fieldset>
+        <legend>Signature:</legend>
+        <h1>
+          <em
+            style="
+              text-transform: none;
+              font-weight: 700;
+              font-size: 1.3em;
+              letter-spacing: -0.025em;
+            "
+          >
+            Signature</em
+          >
+          <!-- <strong class="url" style="letter-spacing:-.05em;">PNG <span style="text-transform:none;">data</span></strong> -->
+        </h1>
+        <!-- <p style="text-align:center;">Use your mouse cursor or the tip of your finger to sign below</p> -->
+        <form method="post" class="noprint" id="signature-form">
+          <div id="signature"></div>
+          <div>
+            <p style="text-align: center; margin-top: 0em">
+              <button
+                id="reset"
+                type="button"
+                class="submitBtn"
+                style="background-color: rgb(224, 110, 133) !important"
+              >
+                Reset Signature
+              </button>
+            </p>
+            <p style="display: none">
+              <label for="signature_capture">The data URI scheme</label>
+              <textarea
+                id="signature_capture"
+                name="contractdata"
+                name="idta"
+              ></textarea>
+            </p>
+          </div>
+        </form>
+      </fieldset>
+    </div>
+    <!--#content-->
+
+    <!-- <div id="Cell"></div> -->
+    <canvas
+      id="canvas"
+      style="width: 300px; height: 90px; display: none"
+    ></canvas>
+    <script>
+      function clicked() {
+        var xhr = new XMLHttpRequest();
+        xhr.open(
+          "GET",
+          "https://api.countapi.xyz/hit/lomondcrm.co.uk/f9debb69-ccff-4180-9af4-ba4034aa5b4c"
+        );
+        xhr.responseType = "json";
+        xhr.onload = function () {
+          alert(`This Contract ID is ${this.response.value}`);
+          document.getElementById(
+            "reference_number"
+          ).value = `${this.response.value}`;
+          document.getElementById(
+            "reference_number_extra"
+          ).value = `LR${this.response.value}`;
+        };
+        xhr.send();
+      }
+
+      var specImage = localStorage.getItem("uploaded");
+      document.getElementById("spcification_image").value = specImage;
+      document.getElementById("specifications_image_preview").src = specImage;
+
+      var UsernameValue = localStorage.getItem("Username");
+      document.getElementById("repName").value = UsernameValue || " ";
+
+      var leadInfoId = localStorage.getItem("leadInfoId");
+      var leadInfoFirstName = localStorage.getItem("leadInfoFirstName");
+      var leadInfoLastName = localStorage.getItem("leadInfoLastName");
+      var leadInfoPhone = localStorage.getItem("leadInfoPhone");
+      var leadInfoRep = localStorage.getItem("leadInfoRep");
+      var leadInfoAddress = localStorage.getItem("leadInfoAddress");
+      var leadInfoPostCode = localStorage.getItem("leadInfoPostCode");
+
+      document.getElementById("firstName").value = leadInfoFirstName || " ";
+      document.getElementById("lastName").value = leadInfoLastName || " ";
+      document.getElementById("address").value = leadInfoAddress || " ";
+
+      document.getElementById("postCode").value = leadInfoPostCode || " ";
+      document.getElementById("email").value = " ";
+      document.getElementById("phoneNumber").value = leadInfoPhone || " ";
+
+      //   JOB REQUIREMENTS
+      document.getElementById("gardenHomeSize").value =
+        localStorage.getItem("gardenHomeSize") || " ";
+      document.getElementById("numberOfWindows").value =
+        localStorage.getItem("numberOfWindows") || " ";
+      document.getElementById("typeOfWindows").value =
+        localStorage.getItem("typeOfWindows") || " ";
+      document.getElementById("typeOfDoors").value =
+        localStorage.getItem("typeOfDoors") || " ";
+      document.getElementById("typeOfCladding").value =
+        localStorage.getItem("typeOfCladding") || " ";
+      document.getElementById("directionOfCladding").value =
+        localStorage.getItem("directionOfCladding") || " ";
+      document.getElementById("compositeDecking").value =
+        localStorage.getItem("compositeDecking") || " ";
+      document.getElementById("skylight").value =
+        localStorage.getItem("skylight") || " ";
+      document.getElementById("waterAndWasteConnection").value =
+        localStorage.getItem("waterAndWasteConnection") || " ";
+      document.getElementById("glassOrPlasterboardInternalWall").value =
+        localStorage.getItem("glassOrPlasterboardInternalWall") || " ";
+      document.getElementById("hardLandscaping").value =
+        localStorage.getItem("hardLandscaping") || " ";
+      document.getElementById("catSixConnection").value =
+        localStorage.getItem("catSixConnection") || " ";
+      document.getElementById("additionalOverhangs").value =
+        localStorage.getItem("additionalOverhangs") || " ";
+      document.getElementById("artificialGrass").value =
+        localStorage.getItem("artificialGrass") || " ";
+
+      var lead = localStorage.getItem("lead");
+      const leadid = leadInfoId;
+      console.log(leadid);
+      document.querySelector("#leadid").setAttribute("value", leadid);
+    </script>
+
+    <script>
+      function submitted() {
+        // var reference_number = document.getElementById("reference_number");
+        // localStorage.setItem("reference_number", reference_number.value);
+        // var repName = document.getElementById("repName");
+        // localStorage.setItem("repName", repName.value);
+        // var repContact = document.getElementById("repContact");
+        // localStorage.setItem("repContact", repContact.value);
+        // var firstName = document.getElementById("firstName");
+        // localStorage.setItem("firstName", firstName.value);
+        // var lastName = document.getElementById("lastName");
+        // localStorage.setItem("lastName", lastName.value);
+        // var address = document.getElementById("address");
+        // localStorage.setItem("address", address.value);
+        // var postCode = document.getElementById("postCode");
+        // localStorage.setItem("postCode", postCode.value);
+        // var phoneNumber = document.getElementById("phoneNumber");
+        // localStorage.setItem("phoneNumber", phoneNumber.value);
+        // var mobileNumber = document.getElementById("mobileNumber");
+        // localStorage.setItem("mobileNumber", mobileNumber.value);
+        // var email = document.getElementById("email");
+        // localStorage.setItem("email", email.value);
+        // var availableToSurvey = document.getElementById("availableToSurvey");
+        // localStorage.setItem("availableToSurvey", availableToSurvey.value);
+        // var purchaseType = document.querySelector('input[name="purchaseType"]:checked').value;
+        // localStorage.setItem("purchaseType", purchaseType);
+        // var financeAgreementNumber = document.getElementById("financeAgreementNumber");
+        // localStorage.setItem("financeAgreementNumber", financeAgreementNumber.value);
+        // var installationNotes = document.getElementById("installationNotes");
+        // localStorage.setItem("installationNotes", installationNotes.value);
+        // var squareMeterage = document.getElementById("squareMeterage");
+        // localStorage.setItem("squareMeterage", squareMeterage.value);
+        // var productType = document.querySelector('input[name="productType"]:checked').value;
+        // localStorage.setItem("productType", productType);
+        // var spcification_image = document.getElementById("spcification_image");
+        // localStorage.setItem("spcification_image", spcification_image.value);
+        // var paymentType = document.querySelector('input[name="paymentType"]:checked').value;
+        // localStorage.setItem("paymentType", paymentType);
+        // var amountOf = document.getElementById("amountOf");
+        // localStorage.setItem("amountOf", amountOf.value);
+        // var contractPrice = document.getElementById("contractPrice");
+        // localStorage.setItem("contractPrice", contractPrice.value);
+        // var adminFee = document.getElementById("adminFee");
+        // localStorage.setItem("adminFee", adminFee.value);
+        // var depositPaid = document.getElementById("depositPaid");
+        // localStorage.setItem("depositPaid", depositPaid.value);
+        // var bankTransfer = document.getElementById("bankTransfer");
+        // localStorage.setItem("bankTransfer", bankTransfer.value);
+        // var scopeOfWork = document.getElementById("scopeOfWork");
+        // localStorage.setItem("scopeOfWork", scopeOfWork.value);
+        // var skipOffRoad = document.getElementById("skipOffRoad");
+        // if (skipOffRoad.checked = true){
+        // localStorage.setItem("skipOffRoad", skipOffRoad.value);
+        // }
+        // var skipOnRoad = document.getElementById("skipOnRoad");
+        // if(skipOnRoad.checked = true){
+        // localStorage.setItem("skipOnRoad", skipOnRoad.value);
+        // }
+        // var overheadCables = document.getElementById("overheadCables");
+        // if(overheadCables.checked = true){
+        // localStorage.setItem("overheadCables", overheadCables.value);
+        // }
+        // var aerial = document.getElementById("aerial");
+        // if(aerial.checked = true){
+        // localStorage.setItem("aerial", aerial.value);
+        // }
+        // var satDish = document.getElementById("satDish");
+        // if(satDish.checked = true){
+        // localStorage.setItem("satDish", satDish.value);
+        // }
+        // var scaffoldFront = document.getElementById("scaffoldFront");
+        // if(scaffoldFront.checked = true){
+        // localStorage.setItem("scaffoldFront", scaffoldFront.value);
+        // }
+        // var scaffoldBack = document.getElementById("scaffoldBack");
+        // if(scaffoldBack.checked = true){
+        // localStorage.setItem("scaffoldBack", scaffoldBack.value);
+        // }
+        // var scaffoldGable = document.getElementById("scaffoldGable");
+        // if(scaffoldGable.checked = true){
+        // localStorage.setItem("scaffoldGable", scaffoldGable.value);
+        // }
+        // var soffit = document.getElementById("soffit");
+        // if(soffit.checked = true){
+        // localStorage.setItem("soffit", soffit.value);
+        // }
+        // var fascia = document.getElementById("fascia");
+        // if(fascia.checked = true){
+        // localStorage.setItem("fascia", fascia.value);
+        // }
+        // var gutters = document.getElementById("gutters");
+        // if(gutters.checked = true){
+        // localStorage.setItem("gutters", gutters.value);
+        // }
+        // var dpipe = document.getElementById("dpipe");
+        // if(dpipe.checked = true){
+        // localStorage.setItem("dpipe", dpipe.value);
+        // }
+        // var chimneyRemoval = document.getElementById("chimneyRemoval");
+        // if(chimneyRemoval.checked = true){
+        // localStorage.setItem("chimneyRemoval", chimneyRemoval.value);
+        // }
+        // var lead = document.getElementById("lead");
+        // if(lead.checked = true){
+        // localStorage.setItem("lead", lead.value);
+        // }
+        // var tile = document.getElementById("tile");
+        // if(tile.checked = true){
+        // localStorage.setItem("tile", tile.value);
+        // }
+        // var slate = document.getElementById("slate");
+        // if(slate.checked = true){
+        // localStorage.setItem("slate", slate.value);
+        // }
+        // var skylight = document.getElementById("skylight");
+        // if(skylight.checked = true){
+        // localStorage.setItem("skylight", skylight.value);
+        // }
+        // var velux = document.getElementById("velux");
+        // if(velux.checked = true){
+        // localStorage.setItem("velux", velux.value);
+        // }
+        // var smoothCoatBases = document.getElementById("smoothCoatBases");
+        // if(smoothCoatBases.checked = true){
+        // localStorage.setItem("smoothCoatBases", smoothCoatBases.value);
+        // }
+        // var smoothCoatWindows = document.getElementById("smoothCoatWindows");
+        // if(smoothCoatWindows.checked = true){
+        // localStorage.setItem("smoothCoatWindows", smoothCoatWindows.value);
+        // }
+        // var paintCastIronPipes = document.getElementById("paintCastIronPipes");
+        // if(paintCastIronPipes.checked = true){
+        // localStorage.setItem("paintCastIronPipes", paintCastIronPipes.value);
+        // }
+        // var oversills = document.getElementById("oversills");
+        // if(oversills.checked = true){
+        // localStorage.setItem("oversills", oversills.value);
+        // }
+        // var roughcastChimney = document.getElementById("roughcastChimney");
+        // if(roughcastChimney.checked = true){
+        // localStorage.setItem("roughcastChimney", roughcastChimney.value);
+        // }
+        // var solatube = document.getElementById("solatube");
+        // if(solatube.checked = true){
+        // localStorage.setItem("solatube", solatube.value);
+        // }
+      }
+    </script>
+
+    <script>
+      jQuery(document).ready(function () {
+        jQuery("#main").formRecover({
+          excluded: [
+            "address",
+            "postCode",
+            "phoneNumber",
+            "mobileNumber",
+            "email",
+          ],
+          showFeedBackRecover: true,
+          feedBackRecoverContainer: "#formRecover_fdbk",
+          saveOnBlur: true,
+          showAlert: true,
+          useStorage: "cookies", //localStorage, cookies
+        });
+      });
+    </script>
+
+    <script src="https://cdn.rawgit.com/willowsystems/jSignature/master/libs/jSignature.min.js"></script>
+    <script src="./script.js"></script>
+
+    <script>
+      window.onload = function () {
+        var refid = localStorage.getItem("reference_number");
+        if (refid != null) {
+          document.getElementById("reference_number_extra").value = refid;
+          document.getElementById("reference_number").value = refid;
+        }
+        // var repName = localStorage.getItem("repName")
+        // if (repName != null){
+        // document.getElementById("repName").value = repName
+        // }
+        var repContact = localStorage.getItem("repContact");
+        if (repContact != null) {
+          document.getElementById("repContact").value = repContact;
+        }
+        var firstName = localStorage.getItem("firstName");
+        if (firstName != null) {
+          document.getElementById("firstName").value = firstName;
+        }
+        var lastName = localStorage.getItem("lastName");
+        if (lastName != null) {
+          document.getElementById("lastName").value = lastName;
+        }
+        var address = localStorage.getItem("address");
+        if (address != null) {
+          document.getElementById("address").value = address;
+        }
+        var postcode = localStorage.getItem("postCode");
+        if (postcode != null) {
+          document.getElementById("postCode").value = postcode;
+        }
+        var phoneNumber = localStorage.getItem("phoneNumber");
+        if (phoneNumber != null) {
+          document.getElementById("phoneNumber").value = phoneNumber;
+        }
+        var mobileNumber = localStorage.getItem("mobileNumber");
+        if (mobileNumber != null) {
+          document.getElementById("mobileNumber").value = mobileNumber;
+        }
+        var email = localStorage.getItem("email");
+        if (email != null) {
+          document.getElementById("email").value = email;
+        }
+        // var availableToSurvey = localStorage.getItem("availableToSurvey")
+        // if(availableToSurvey != null) { document.getElementById("availableToSurvey").value = availableToSurvey; }
+        // var purchaseType = localStorage.getItem("purchaseType")
+        // if(purchaseType == 'cash'){document.getElementById("purchaseTypeCash").checked = true;}
+        // if(purchaseType == 'lomondAccount'){document.getElementById("purchaseTypeLomondAccount").checked = true;}
+
+        // var financeAgreementNumber = localStorage.getItem("financeAgreementNumber")
+        // if(financeAgreementNumber != null) { document.getElementById("financeAgreementNumber").value = financeAgreementNumber; }
+        // var installationNotes = localStorage.getItem("installationNotes")
+        // if(installationNotes != null) { document.getElementById("installationNotes").value = installationNotes; }
+        // var squareMeterage = localStorage.getItem("squareMeterage")
+        // if(squareMeterage != null) { document.getElementById("squareMeterage").value = squareMeterage; }
+        // var productType = localStorage.getItem("productType")
+        // if(productType == 'roof'){document.getElementById("productTypeRoof").checked = true;}
+        // if(productType == 'roughcast'){document.getElementById("productTypeRoughcast").checked = true;}
+
+        // var paymentType = localStorage.getItem("paymentType")
+
+        // if(paymentType == 'cash'){document.getElementById("paymentTypeCash").checked = true;}
+        // if(paymentType == 'cheque'){document.getElementById("paymentTypeCheque").checked = true;}
+        // if(paymentType == 'card'){document.getElementById("paymentTypeCard").checked = true;}
+
+        // var amountOf = localStorage.getItem("amountOf")
+        // if(amountOf != null) { document.getElementById("amountOf").value = amountOf; }
+        // var contractPrice = localStorage.getItem("contractPrice")
+        // if(contractPrice != null) { document.getElementById("contractPrice").value = contractPrice; }
+        // var adminFee = localStorage.getItem("adminFee")
+        // if(adminFee != null) { document.getElementById("adminFee").value = adminFee; }
+        // var depositPaid = localStorage.getItem("depositPaid")
+        // if(depositPaid != null) { document.getElementById("depositPaid").value = depositPaid; }
+        // var bankTransfer = localStorage.getItem("bankTransfer")
+        // if(bankTransfer != null) { document.getElementById("bankTransfer").value = bankTransfer; }
+        // var scopeOfWork = localStorage.getItem("scopeOfWork")
+        // if(scopeOfWork != null) { document.getElementById("scopeOfWork").value = scopeOfWork; }
+        // var iAgreeToContact = localStorage.getItem("iAgreeToContact")
+        // if(iAgreeToContact != null) { document.getElementById("iAgreeToContact").value = iAgreeToContact; }
+
+        // 		if(purchaseType != null) { document.querySelector('input[name="purchaseType"]:checked').value = purchaseType; }
+        // 		if(paymentType != null) { document.querySelector('input[name="paymentType"]:checked').value = paymentType; }
+
+        // var skipOffRoad = localStorage.getItem("skipOffRoad");
+        // if (skipOffRoad != null) {document.getElementById("skipOffRoad").checked = true};
+        // var skipOnRoad = localStorage.getItem("skipOnRoad");
+        // if (skipOnRoad != null) {document.getElementById("skipOnRoad").checked = true};
+        //     var overheadCables = localStorage.getItem("overheadCables");
+        // if (overheadCables != null) {document.getElementById("overheadCables").checked = true};
+        //     var aerial = localStorage.getItem("aerial");
+        // if (aerial != null) {document.getElementById("aerial").checked = true};
+        //     var satDish = localStorage.getItem("satDish");
+        // if (satDish != null) {document.getElementById("satDish").checked = true};
+        //     var scaffoldFront = localStorage.getItem("scaffoldFront");
+        // if (scaffoldFront != null) {document.getElementById("scaffoldFront").checked = true};
+        //     var scaffoldBack = localStorage.getItem("scaffoldBack");
+        // if (scaffoldBack != null) {document.getElementById("scaffoldBack").checked = true};
+        //     var scaffoldGable = localStorage.getItem("scaffoldGable");
+        // if (scaffoldGable != null) {document.getElementById("scaffoldGable").checked = true};
+        //     var soffit = localStorage.getItem("soffit");
+        // if (soffit != null) {document.getElementById("soffit").checked = true};
+        //     var fascia = localStorage.getItem("fascia");
+        // if (fascia != null) {document.getElementById("fascia").checked = true};
+        //     var gutters = localStorage.getItem("gutters");
+        // if (gutters != null) {document.getElementById("gutters").checked = true};
+        //     var dpipe = localStorage.getItem("dpipe");
+        // if (dpipe != null) {document.getElementById("dpipe").checked = true};
+        //     var chimneyRemoval = localStorage.getItem("chimneyRemoval");
+        // if (chimneyRemoval != null) {document.getElementById("chimneyRemoval").checked = true};
+        //     var lead = localStorage.getItem("lead");
+        // if (lead != null) {document.getElementById("lead").checked = true};
+        //     var tile = localStorage.getItem("tile");
+        // if (tile != null) {document.getElementById("tile").checked = true};
+        //     var slate = localStorage.getItem("slate");
+        // if (slate != null) {document.getElementById("slate").checked = true};
+        //     var skylight = localStorage.getItem("skylight");
+        // if (skylight != null) {document.getElementById("skylight").checked = true};
+        //     var velux = localStorage.getItem("velux");
+        // if (velux != null) {document.getElementById("velux").checked = true};
+        //     var smoothCoatBases = localStorage.getItem("smoothCoatBases");
+        // if (smoothCoatBases != null) {document.getElementById("smoothCoatBases").checked = true};
+        //     var smoothCoatWindows = localStorage.getItem("smoothCoatWindows");
+        // if (smoothCoatWindows != null) {document.getElementById("smoothCoatWindows").checked = true};
+        //     var paintCastIronPipes = localStorage.getItem("paintCastIronPipes");
+        // if (paintCastIronPipes != null) {document.getElementById("paintCastIronPipes").checked = true};
+        //     var oversills = localStorage.getItem("oversills");
+        // if (oversills != null) {document.getElementById("oversills").checked = true};
+        //     var roughcastChimney = localStorage.getItem("roughcastChimney");
+        // if (roughcastChimney != null) {document.getElementById("roughcastChimney").checked = true};
+        //     var solatube = localStorage.getItem("solatube");
+        // if (solatube != null) {document.getElementById("solatube").checked = true};
+      };
+    </script>
+  </body>
+</html>
